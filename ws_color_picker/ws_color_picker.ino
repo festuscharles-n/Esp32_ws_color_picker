@@ -32,7 +32,8 @@ void setup() {
     Serial.println(WiFi.localIP());
   }
 
-  webSocket.begin("192.168.63.99", 4000, "/");  // Replace with your actual server IP and port
+  //webSocket.begin("192.168.63.99", 4000, "/");  // Replace with your actual server IP and port
+  webSocket.begin("esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io", 4000, "/");
   webSocket.onEvent(webSocketEvent);
   webSocket.setReconnectInterval(5000);
 }
