@@ -33,7 +33,8 @@ void setup() {
   }
 
   //webSocket.begin("192.168.63.99", 4000, "/");  // Replace with your actual server IP and port
-  webSocket.begin("esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io", 4000, "/");
+  //webSocket.begin("esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io", 4000, "/");
+  webSocket.beginSSL("esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io", 443, "/", "", "wss");
   webSocket.onEvent(webSocketEvent);
   webSocket.setReconnectInterval(5000);
 }
