@@ -44,7 +44,9 @@
   <input type="color" id="colorPicker" oninput="updateColor()" />
   
   <script>
-    const socket = io('https://esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io');
+    //const socket = io('https://esp32wscolorpicker-dev-fhdt.4.us-1.fl0.io');
+    const socket = io('https://esp32-socketio.onrender.com');
+
     const colorPicker = document.getElementById('colorPicker');
 
     socket.on('server-event', (data) => {
