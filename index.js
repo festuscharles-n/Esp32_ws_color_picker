@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
     // Extract color information from data (assuming data contains red, green, and blue properties)
     const { red, green, blue } = data;
     
-    io.emit('esp32-event', { red, green, blue });
+    socket.emit('esp32-event', { red, green, blue });
   });
 
   socket.on('esp32-client', (data) => {
