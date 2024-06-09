@@ -18,19 +18,56 @@ io.on('connection', (socket) => {
     io.emit('server-event', 'You are connected to a server');
   }, 1000);
 
-  // Handle sensor data
   socket.on('client-event', (data) => {
     console.log('Received sensor data:', data);
     const { pwm } = data
-    console.log(data)
-    console.log(typeof (data.pwm))
     io.emit("esp32-event", { pwm: pwm })
   });
 
-  socket.on('esp32-client', (data) => {
-    console.log('Received data from ESP32:', data);
-    socket.emit('response-event', { message: 'Hello from server!' });
+  socket.on('sensor-event', (data) => {
+    console.log('Received sensor data:', data);
+    const { dataValue } = data
+    io.emit("sensor-value", { dataValue })
   });
+  
+  // Smart window 
+  socket.on('status-update', (status) => {
+    console.log('Status Update:', status);
+    // Handle the status update as needed (e.g., send notifications to users)
+    socket.emit('status-update', status);
+  });
+
+  // Handle controlling stepper motor
+  socket.on('control-stepper', (value) => {
+    console.log('Control Stepper:', value);
+    // Handle the stepper motor control command (e.g., trigger stepper movement)
+  });
+
+  // Smart Meter code
+  socket.on('meter_data', (data) => {
+    console.log('Sensor data received:', data);
+    io.emit('meter_data', data);
+  });
+
+  //Smart Meter relay code
+  socket.on('relay-control', ({ state, number }) => {
+    console.log('Relay control command received:', state, number);
+    io.emit('relay-control', { relayState: state, relayNumber: number });
+  });
+
+  // // Handle sensor data for color sensor shaaa...
+  // socket.on('client-event', (data) => {
+  //   console.log('Received sensor data:', data);
+  //   const { pwm } = data
+  //   console.log(data)
+  //   console.log(typeof (data.pwm))
+  //   io.emit("esp32-event", { pwm: pwm })
+  // });
+
+  // socket.on('esp32-client', (data) => {
+  //   console.log('Received data from ESP32:', data);
+  //   socket.emit('response-event', { message: 'Hello from server!' });
+  // });
   
   // Handle disconnection
   socket.on('disconnect', () => {
